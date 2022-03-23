@@ -15,5 +15,4 @@ type Book struct {
 	ISBN           string  `json:"ISBN"`
 	ReleaseDate    string  `json:"Release_Date"`
 	AuthorID       int     `json:"Author_Id"`
-	IsDeleted      bool    `json:"IsDeleted"`
 }

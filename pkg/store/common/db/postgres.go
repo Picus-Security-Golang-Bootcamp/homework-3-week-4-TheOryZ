@@ -11,11 +11,11 @@ import (
 func NewPsqlDB() (*gorm.DB, error) {
 
 	dataSourceName := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
-		os.Getenv("PATIKA_DB_HOST"),
-		os.Getenv("PATIKA_DB_PORT"),
-		os.Getenv("PATIKA_DB_USERNAME"),
-		os.Getenv("PATIKA_DB_NAME"),
-		os.Getenv("PATIKA_DB_PASSWORD"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_USERNAME"),
+		os.Getenv("DB_NAME"),
+		os.Getenv("DB_PASSWORD"),
 	)
 
 	db, err := gorm.Open(postgres.Open(dataSourceName), &gorm.Config{})

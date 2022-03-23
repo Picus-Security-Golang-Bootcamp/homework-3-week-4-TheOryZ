@@ -8,8 +8,7 @@
           "Price":20.5,
           "ISBN":"ISBN987654321",
           "Release_Date":"1965",
-          "Author_Id":1,
-          "IsDeleted":false
+          "Author_Id":1
        },
        {
           "Id":2,
@@ -19,8 +18,7 @@
           "Price":24.9,
           "ISBN":"ISBN987654321",
           "Release_Date":"1955",
-          "Author_Id":2,
-          "IsDeleted":true
+          "Author_Id":2
        },
        {
           "Id":3,
@@ -30,8 +28,7 @@
           "Price":18.5,
           "ISBN":"ISBN987654321",
           "Release_Date":"1949",
-          "Author_Id":3,
-          "IsDeleted":false
+          "Author_Id":3
        },
        {
           "Id":4,
@@ -41,8 +38,7 @@
           "Price":19,
           "ISBN":"ISBN987654321",
           "Release_Date":"1932",
-          "Author_Id":4,
-          "IsDeleted":false
+          "Author_Id":4
        },
        {
           "Id":5,
@@ -52,8 +48,7 @@
           "Price":32.5,
           "ISBN":"ISBN987654321",
           "Release_Date":"1942",
-          "Author_Id":5,
-          "IsDeleted":false
+          "Author_Id":5
        }
     ]
  }
