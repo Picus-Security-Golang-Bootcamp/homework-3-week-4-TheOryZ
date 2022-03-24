@@ -23,13 +23,29 @@ func (b *BookRepository) FindAll() []Book {
 //FindById Get By Id <SELECT * FROM Books WHERE ID = id>
 func (b *BookRepository) FindById(id int) Book {
 	var book Book
-	b.db.Where(`"ID" = ?`, id).Find(&book)
+	b.db.Where("ID = ?", id).Find(&book)
 	return book
 }
 
 //FindByAuthorID Get by Author ID <SELECT * FROM Books WHERE AuthorID = authorID ORDER BY ID DESC>
 func (b *BookRepository) FindByAuthorID(authorID int) []Book {
 	var books []Book
-	b.db.Where(`"AuthorID" = ?`, authorID).Order("Id desc").Find(&books)
+	b.db.Where("AuthorID = ?", authorID).Order("Id desc").Find(&books)
 	return books
 }
+
+//FindByTitle Get by Title <SELECT * FROM Books WHERE Title = title>
+func (b *BookRepository) FindByTitle(title string) []Book {
+	var books []Book
+	b.db.Where("Title = ?", title).Find(&books)
+	return books
+}
+
+//GetByStocksAvailability
+func (b *BookRepository) GetByStocksAvailability() []Book {
+	var books []Book
+	b.db.Where("deleted_at = ?", 0).Find(&books) //TODO: Check structs for soft delete
+	return books
+}
+
+//GetByIdWithAuthorName TODO: we have to change struct models!! Check gorm.io/belongs_to.html
