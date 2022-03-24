@@ -27,21 +27,21 @@ func (b *BookRepository) FindAll() []Book {
 //FindById Get By Id <SELECT * FROM Books WHERE ID = id>
 func (b *BookRepository) FindById(id int) Book {
 	var book Book
-	b.db.Where("ID = ?", id).Find(&book)
+	b.db.Where("id = ?", id).Find(&book)
 	return book
 }
 
 //FindByAuthorID Get by Author ID <SELECT * FROM Books WHERE AuthorID = authorID ORDER BY ID DESC>
 func (b *BookRepository) FindByAuthorID(authorID int) []Book {
 	var books []Book
-	b.db.Where("AuthorID = ?", authorID).Order("Id desc").Find(&books)
+	b.db.Where("author_id = ?", authorID).Order("id desc").Find(&books)
 	return books
 }
 
 //FindByTitle Get by Title <SELECT * FROM Books WHERE Title = title>
 func (b *BookRepository) FindByTitle(title string) []Book {
 	var books []Book
-	b.db.Where("Title = ?", title).Find(&books)
+	b.db.Where("title = ?", title).Find(&books)
 	return books
 }
 
@@ -52,10 +52,10 @@ func (b *BookRepository) GetNonDeleted() []Book {
 	return books
 }
 
-//GetByIdWithAuthorName Get all books and with authors names
-func (b *BookRepository) GetByIdWithAuthorName() model.BookWithAuthor {
+//GetByIdWithAuthorName Get book by id and with authors names
+func (b *BookRepository) GetByIdWithAuthorName(id int) model.BookWithAuthor {
 	var model model.BookWithAuthor
-	b.db.Select("Books.id, Books.title, Books.number_of_pages, Books.number_of_stocks, Books.price, Books.isbn, Books.release_date, Books.author_id, Authors.name").Joins("left join Authors on Authors.id = Books.author_id").Scan(model)
+	b.db.Select("Books.id, Books.title, Books.number_of_pages, Books.number_of_stocks, Books.price, Books.isbn, Books.release_date, Books.author_id, Authors.name").Joins("left join Authors on Authors.id = Books.author_id").Where("Books.id = ?", id).Scan(model)
 	return model
 }
 
@@ -80,6 +80,15 @@ func (b *BookRepository) Update(book Book) error {
 //Delete Delete book
 func (b *BookRepository) Delete(book Book) error {
 	result := b.db.Delete(book)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+//DeleteById Delete by Id book
+func (b *BookRepository) DeleteById(id int) error {
+	result := b.db.Delete(&Book{}, id)
 	if result.Error != nil {
 		return result.Error
 	}
