@@ -1,6 +1,10 @@
 package book
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+
+	model "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/model"
+)
 
 type BookRepository struct {
 	db *gorm.DB
@@ -41,11 +45,43 @@ func (b *BookRepository) FindByTitle(title string) []Book {
 	return books
 }
 
-//GetByStocksAvailability
-func (b *BookRepository) GetByStocksAvailability() []Book {
+//GetNonDeleted Get non deleted books
+func (b *BookRepository) GetNonDeleted() []Book {
 	var books []Book
-	b.db.Where("deleted_at = ?", 0).Find(&books) //TODO: Check structs for soft delete
+	b.db.Where("deleted_at = ?", 0).Find(&books)
 	return books
 }
 
-//GetByIdWithAuthorName TODO: we have to change struct models!! Check gorm.io/belongs_to.html
+//GetByIdWithAuthorName Get all books and with authors names
+func (b *BookRepository) GetByIdWithAuthorName() model.BookWithAuthor {
+	var model model.BookWithAuthor
+	b.db.Select("Books.id, Books.title, Books.number_of_pages, Books.number_of_stocks, Books.price, Books.isbn, Books.release_date, Books.author_id, Authors.name").Joins("left join Authors on Authors.id = Books.author_id").Scan(model)
+	return model
+}
+
+//Insert Create new Book
+func (b *BookRepository) Insert(book Book) error {
+	result := b.db.Create(book)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+//Update Update book
+func (b *BookRepository) Update(book Book) error {
+	result := b.db.Save(book)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+//Delete Delete book
+func (b *BookRepository) Delete(book Book) error {
+	result := b.db.Delete(book)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
