@@ -35,7 +35,7 @@ func main() {
 	log.Println("Seed Datas inserted")
 
 	//Sample Queries for Authors
-	fmt.Println(authorRepo.GetNonDeleted())
+	//fmt.Println(authorRepo.FindAll())
 	fmt.Println(authorRepo.GetByIdWithBooks(1))
 
 	//Sample Queries for Books
