@@ -49,7 +49,7 @@ func (b *BookRepository) FindByTitle(title string) []Book {
 //GetNonDeleted Get non deleted books
 func (b *BookRepository) GetNonDeleted() []Book {
 	var books []Book
-	b.db.Where("deleted_at = ?", 0).Find(&books)
+	b.db.Where("deleted_at = ?", nil).Find(&books)
 	return books
 }
 

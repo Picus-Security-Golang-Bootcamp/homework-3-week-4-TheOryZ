@@ -4,6 +4,7 @@ import (
 	"Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/store/author"
 	"Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/store/book"
 	postgres "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/store/common/db"
+	"fmt"
 	"log"
 
 	"github.com/joho/godotenv"
@@ -31,4 +32,11 @@ func main() {
 	//Insert Seed Datas
 	authorRepo.InsertSeedData()
 	bookRepo.InsertSeedData()
+	log.Println("Seed Datas inserted")
+
+	//Sample Queries for Authors
+	fmt.Println(authorRepo.GetNonDeleted())
+
+	//Sample Queries for Books
+
 }

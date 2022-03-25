@@ -42,7 +42,7 @@ func (a *AuthorRepository) FindByName(name string) []Author {
 //GetNonDeleted Get non deleted authors
 func (a *AuthorRepository) GetNonDeleted() []Author {
 	var authors []Author
-	a.db.Where("deleted_at = ?", 0).Find(&authors)
+	a.db.Where("deleted_at = ?", nil).Find(&authors)
 	return authors
 }
 
