@@ -54,8 +54,8 @@ func (b *BookRepository) GetNonDeleted() []Book {
 }
 
 //GetByIdWithAuthorName Get book by id and with authors names
-func (b *BookRepository) GetByIdWithAuthorName(id int) model.BookWithAuthor {
-	var model model.BookWithAuthor
+func (b *BookRepository) GetByIdWithAuthorName(id int) []model.BookWithAuthor {
+	var model []model.BookWithAuthor
 	b.db.Joins("left join authors on authors.id = books.author_id").
 		Where("books.id = ?", id).
 		Table("books").
@@ -66,7 +66,7 @@ func (b *BookRepository) GetByIdWithAuthorName(id int) model.BookWithAuthor {
 
 //Insert Create new Book
 func (b *BookRepository) Insert(book Book) error {
-	result := b.db.Create(book)
+	result := b.db.Create(&book)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -75,7 +75,7 @@ func (b *BookRepository) Insert(book Book) error {
 
 //Update Update book
 func (b *BookRepository) Update(book Book) error {
-	result := b.db.Save(book)
+	result := b.db.Save(&book)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -84,7 +84,7 @@ func (b *BookRepository) Update(book Book) error {
 
 //Delete Delete book
 func (b *BookRepository) Delete(book Book) error {
-	result := b.db.Delete(book)
+	result := b.db.Delete(&book)
 	if result.Error != nil {
 		return result.Error
 	}

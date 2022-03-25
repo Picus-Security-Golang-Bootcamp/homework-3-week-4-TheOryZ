@@ -36,8 +36,10 @@ func main() {
 
 	//Sample Queries for Authors
 	//fmt.Println(authorRepo.FindAll())
-	fmt.Println(authorRepo.GetByIdWithBooks(1))
+	//fmt.Println(authorRepo.GetByIdWithBooks(1))
+	model := author.Author{Name: "Gene Wolfe"}
+	fmt.Println(authorRepo.Insert(model))
 
 	//Sample Queries for Books
-
+	//fmt.Println(bookRepo.GetByIdWithAuthorName(1))
 }
