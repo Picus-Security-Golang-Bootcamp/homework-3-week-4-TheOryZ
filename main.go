@@ -36,6 +36,7 @@ func main() {
 
 	//Sample Queries for Authors
 	fmt.Println(authorRepo.GetNonDeleted())
+	fmt.Println(authorRepo.GetByIdWithBooks(1))
 
 	//Sample Queries for Books
 
