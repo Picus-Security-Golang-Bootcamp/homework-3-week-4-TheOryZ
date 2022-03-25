@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 
 	model "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/model"
+	services "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/service"
 )
 
 type BookRepository struct {
@@ -91,6 +92,20 @@ func (b *BookRepository) DeleteById(id int) error {
 	result := b.db.Delete(&Book{}, id)
 	if result.Error != nil {
 		return result.Error
+	}
+	return nil
+}
+
+//InsertSeedData
+func (b *BookRepository) InsertSeedData() error {
+	books, err := services.GetAllBooks()
+	if err != nil {
+		return err
+	}
+	for _, book := range books.Books {
+		b.db.Where(Book{Title: book.Title}).
+			Attrs(Book{Title: book.Title, NumberOfPages: book.NumberOfPages, NumberOfStocks: book.NumberOfStocks, Price: book.Price, ISBN: book.ISBN, ReleaseDate: book.ReleaseDate, AuthorID: book.AuthorID}).
+			FirstOrCreate(&book)
 	}
 	return nil
 }

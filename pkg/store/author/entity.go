@@ -12,7 +12,7 @@ type Author struct {
 }
 
 func (Author) TableName() string {
-	return "Authors"
+	return "authors"
 }
 func (a *Author) ToString() string {
 	return fmt.Sprintf("ID : %d, Name : %s, CreatedAt : %s", a.ID, a.Name, a.CreatedAt)

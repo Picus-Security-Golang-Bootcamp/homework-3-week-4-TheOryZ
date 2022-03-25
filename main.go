@@ -21,10 +21,14 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	//Repositories
+	//Connection DB and migrations
 	authorRepo := author.NewAuthorRepository(db)
 	authorRepo.Migrations()
 
 	bookRepo := book.NewBookRepository(db)
 	bookRepo.Migrations()
+
+	//Insert Seed Datas
+	authorRepo.InsertSeedData()
+	bookRepo.InsertSeedData()
 }

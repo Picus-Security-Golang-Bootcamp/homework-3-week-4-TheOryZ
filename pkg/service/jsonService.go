@@ -10,7 +10,7 @@ import (
 // GetAllBooks Function that returns all books
 func GetAllBooks() (*model.Books, error) {
 	var books model.Books
-	jsonFile, err := os.Open("../../pkg/docs/books.json")
+	jsonFile, err := os.Open("pkg/docs/books.json")
 	if err != nil {
 		return nil, err
 	}
@@ -23,7 +23,7 @@ func GetAllBooks() (*model.Books, error) {
 //GetAllAuthors Function that returns all authors
 func GetAllAuthors() (*model.Authors, error) {
 	var authors model.Authors
-	jsonFile, err := os.Open("../../pkg/docs/authors.json")
+	jsonFile, err := os.Open("pkg/docs/authors.json")
 	if err != nil {
 		return nil, err
 	}

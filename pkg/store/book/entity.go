@@ -18,7 +18,7 @@ type Book struct {
 }
 
 func (Book) TableName() string {
-	return "Books"
+	return "books"
 }
 func (b *Book) ToString() string {
 	return fmt.Sprintf("ID : %d, Title : %s, Number Of Stocks : %d, Price : %f, ISBN : %s, Release Date : %s ", b.ID, b.Title, b.NumberOfStocks, b.Price, b.ISBN, b.ReleaseDate)

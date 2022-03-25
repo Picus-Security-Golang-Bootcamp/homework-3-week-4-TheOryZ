@@ -2,6 +2,7 @@ package author
 
 import (
 	model "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/model"
+	services "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/service"
 
 	"gorm.io/gorm"
 )
@@ -84,6 +85,20 @@ func (a *AuthorRepository) DeleteById(id int) error {
 	result := a.db.Delete(&Author{}, id)
 	if result.Error != nil {
 		return result.Error
+	}
+	return nil
+}
+
+//InsertSeedData
+func (a *AuthorRepository) InsertSeedData() error {
+	authors, err := services.GetAllAuthors()
+	if err != nil {
+		return err
+	}
+	for _, author := range authors.Authors {
+		a.db.Where(Author{Name: author.Name}).
+			Attrs(Author{Name: author.Name}).
+			FirstOrCreate(&author)
 	}
 	return nil
 }
