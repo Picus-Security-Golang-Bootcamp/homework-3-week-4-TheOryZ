@@ -42,7 +42,7 @@ func (b *BookRepository) FindByAuthorID(authorID int) []Book {
 //FindByTitle Get by Title <SELECT * FROM Books WHERE Title = title>
 func (b *BookRepository) FindByTitle(title string) []Book {
 	var books []Book
-	b.db.Where("title = ?", title).Find(&books)
+	b.db.Where("title LIKE ?", "%"+title+"%").Find(&books)
 	return books
 }
 
@@ -107,7 +107,7 @@ func (b *BookRepository) InsertSeedData() error {
 		return err
 	}
 	for _, book := range books.Books {
-		b.db.Where(Book{Title: book.Title}).
+		b.db.Unscoped().Where(Book{Title: book.Title}).
 			Attrs(Book{Title: book.Title, NumberOfPages: book.NumberOfPages, NumberOfStocks: book.NumberOfStocks, Price: book.Price, ISBN: book.ISBN, ReleaseDate: book.ReleaseDate, AuthorID: book.AuthorID}).
 			FirstOrCreate(&book)
 	}

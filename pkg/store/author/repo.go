@@ -35,7 +35,7 @@ func (a *AuthorRepository) FindById(id int) Author {
 //FindByName Get by Name <SELECT * FROM Authors WHERE name = name>
 func (a *AuthorRepository) FindByName(name string) []Author {
 	var authors []Author
-	a.db.Where("name = ?", name).Find(&authors)
+	a.db.Where("name LIKE ?", "%"+name+"%").Find(&authors)
 	return authors
 }
 
@@ -100,7 +100,7 @@ func (a *AuthorRepository) InsertSeedData() error {
 		return err
 	}
 	for _, author := range authors.Authors {
-		a.db.Where(Author{Name: author.Name}).
+		a.db.Unscoped().Where(Author{Name: author.Name}).
 			Attrs(Author{Name: author.Name}).
 			FirstOrCreate(&author)
 	}
