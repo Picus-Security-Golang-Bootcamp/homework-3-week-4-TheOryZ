@@ -56,7 +56,11 @@ func (b *BookRepository) GetNonDeleted() []Book {
 //GetByIdWithAuthorName Get book by id and with authors names
 func (b *BookRepository) GetByIdWithAuthorName(id int) model.BookWithAuthor {
 	var model model.BookWithAuthor
-	b.db.Select("Books.id, Books.title, Books.number_of_pages, Books.number_of_stocks, Books.price, Books.isbn, Books.release_date, Books.author_id, Authors.name").Joins("left join Authors on Authors.id = Books.author_id").Where("Books.id = ?", id).Scan(model)
+	b.db.Joins("left join authors on authors.id = books.author_id").
+		Where("books.id = ?", id).
+		Table("books").
+		Select("books.id ,books.title, authors.name").
+		Scan(&model)
 	return model
 }
 

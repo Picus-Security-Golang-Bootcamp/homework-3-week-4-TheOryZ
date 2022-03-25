@@ -1,6 +1,7 @@
 package book
 
 import (
+	authorRepo "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/store/author"
 	"fmt"
 
 	"gorm.io/gorm"
@@ -15,6 +16,7 @@ type Book struct {
 	ISBN           string
 	ReleaseDate    string
 	AuthorID       int
+	Author         authorRepo.Author `gorm:"foreignKey:AuthorID;"`
 }
 
 func (Book) TableName() string {

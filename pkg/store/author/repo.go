@@ -3,7 +3,6 @@ package author
 import (
 	model "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/model"
 	services "Picus-Security-Golang-Bootcamp/homework-3-week-4-TheOryZ/pkg/service"
-	"log"
 
 	"gorm.io/gorm"
 )
@@ -50,15 +49,11 @@ func (a *AuthorRepository) GetNonDeleted() []Author {
 //GetByIdWithBooks Get Author by id and with books
 func (a *AuthorRepository) GetByIdWithBooks(id int) model.BookWithAuthor {
 	var model model.BookWithAuthor
-	// a.db.Select("authors.id, authors.name, books.id ,books.title").Joins("left join books on authors.id = books.author_id").Where("authors.id = ?", id).Scan(model)
-	rows, err := a.db.Table("authors").Select("authors.id, authors.name, books.id ,books.title").Joins("left join books on authors.id = books.author_id").Where("authors.id = ?", id).Rows()
-	if err != nil {
-		log.Fatal("ERROR!!")
-	}
-	for rows.Next() {
-		a.db.ScanRows(rows, &model)
-
-	}
+	a.db.Joins("left join books on authors.id = books.author_id").
+		Where("authors.id = ?", id).
+		Table("authors").
+		Select("books.id ,books.title, authors.name").
+		Scan(&model)
 	return model
 }
 
