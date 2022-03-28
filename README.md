@@ -1,10 +1,14 @@
-# Homework 3 Week 4
+# Library App with PostgreSQL&GORM in GOLANG
 
-- `Book` ve `Author` bilgileri bir dosyadan okunacak ve DB'ye kayıt edilecek.
-- `list`, `search`, `delete(soft-delete)`, `buy` gibi `os.Args` komutları yerine DB sorguları yazılacak. 
-- Bu 2 modelle alakalı GORM sorguları yazılacak.
-  - GetByID
-  - FindByName
-  - GetBooksWithAuthor
-  - GetAuthorWithBooks etc. (GORM dökümantasyondaki sorgu çeşitlerine bakılacak bu 2 modelde uygulanacak)
-  - (Sadece 4 sorgu değil olabildiğince sorgu yazıp kendinizi geliştirin. Bu size artı olarak dönüş olacaktır.)
+This app reads .json files and do basic database operations with GORM
+
+## Usage
+
+```[terminal]
+go run main.go
+```
+
+
+## Third Party packages
+
+* The program is created with **GO main package & GORM & Godotenv**.
